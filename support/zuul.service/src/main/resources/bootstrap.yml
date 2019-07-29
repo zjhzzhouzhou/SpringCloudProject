@@ -12,7 +12,7 @@ spring:
       label: master
       uri: http://localhost:17006
       username: zhouzhou
-      password: Zz85141734
+      password:
       name: dyyy
 
 #logback中配置的日志路径

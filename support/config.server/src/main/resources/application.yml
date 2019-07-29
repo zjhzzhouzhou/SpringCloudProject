@@ -55,7 +55,7 @@ spring:
           uri: http://122.227.26.94:10000/dycloudhis/config-center.git
           search-paths: local
           username: zhouzhou
-          password: Zz85141734
+          password:
 
 ---
 spring.profiles: test
@@ -71,7 +71,7 @@ spring:
           uri: http://122.227.26.94:10000/dycloudhis/config-center.git
           search-paths: test
           username: zhouzhou
-          password: Zz85141734
+          password:
 
 
 
