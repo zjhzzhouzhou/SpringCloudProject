@@ -51,8 +51,7 @@ spring:
       label: master
       server:
         git:
-          #http://gitlab.dyyy.com:9001/dycloudhis/config-center.git
-          uri: http://122.227.26.94:10000/dycloudhis/config-center.git
+          uri: https://github.com/zjhzzhouzhou/SpringCloudConfig.git
           search-paths: local
           username: zhouzhou
           password:
@@ -67,8 +66,7 @@ spring:
       label: master
       server:
         git:
-          #http://gitlab.dyyy.com:9001/dycloudhis/config-center.git
-          uri: http://122.227.26.94:10000/dycloudhis/config-center.git
+          uri: https://github.com/zjhzzhouzhou/SpringCloudConfig.git
           search-paths: test
           username: zhouzhou
           password:
