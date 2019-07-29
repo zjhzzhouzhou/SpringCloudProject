@@ -1,0 +1,21 @@
+server:
+  port: 17005
+
+spring:
+  application:
+    name: zuul-service
+
+  profiles.include: zuul, springcloud, redis, kafka
+
+  cloud:
+    config:
+      label: master
+      uri: http://localhost:17006
+      username: zhouzhou
+      password: Zz85141734
+      name: dyyy
+
+#logback中配置的日志路径
+logback:
+  logfile:
+      path: /data/logs/${spring.application.name}

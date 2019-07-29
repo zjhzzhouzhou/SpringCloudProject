@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>user.center</artifactId>
+        <groupId>com.dyhospital</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <artifactId>user.service</artifactId>
+
+    <dependencies>
+
+        <!-- spring boot-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- 内部依赖-->
+        <dependency>
+            <groupId>com.dyhospital</groupId>
+            <artifactId>common.utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dyhospital</groupId>
+            <artifactId>common.cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dyhospital</groupId>
+            <artifactId>common.web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dyhospital</groupId>
+            <artifactId>user.repository</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dyhospital</groupId>
+            <artifactId>user.api</artifactId>
+        </dependency>
+
+        <!-- 内部依赖-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+    </dependencies>
+    <properties>
+        <build.final.name>user-service</build.final.name>
+    </properties>
+    <build>
+        <finalName>${build.final.name}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/docker/</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>Dockerfile</include>
+                </includes>
+                <targetPath>${project.build.directory}</targetPath>
+            </resource>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <delete file="../../../deploy/microservice/libs/${build.final.name}.jar" />
+                                <copy file="${project.build.directory}/${build.final.name}.jar" tofile="../../../deploy/microservice/libs/${build.final.name}.jar"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${dockerfile.maven.version}</version>
+                <!--<executions>
+                    <execution>
+                        <id>install</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>-->
+                <configuration>
+                    <contextDirectory>${project.build.directory}</contextDirectory>
+                    <repository>${docker.registry.name.prefix}/${project.build.finalName}</repository>
+                    <tag>${project.version}</tag>
+                    <username>${docker.registry.username}</username>
+                    <password> ${docker.registry.password}</password>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

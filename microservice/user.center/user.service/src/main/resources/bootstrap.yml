@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: user-service
+
+  profiles.include: user-service, springcloud, redis, database, kafka
+
+  cloud:
+    config:
+      label: master
+      uri: http://localhost:17006
+      username: zhouzhou
+      password: Zz85141734
+      name: dyyy
+
+server:
+  port: 18001

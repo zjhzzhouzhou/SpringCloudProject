@@ -1,0 +1,79 @@
+server:
+  port: 17006
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: config-server
+
+  security:
+    user:
+      name: admin
+      password: 1qaz_QAZ
+
+
+
+eureka:
+  # 实例配置类： EurekaInstanceConfigBean
+  instance:
+
+    # 设置微服务调用地址为IP优先（缺省为false）
+    #    perferIpAddress: true
+    prefer-ip-address: true
+    #    instance-id: ${spring.cloud.client.ipAddress}:${spring.application.name}:${server.port}
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${server.port}
+    # 心跳时间，即服务续约间隔时间（缺省为30s）
+    #    leaseRenewalIntervalInSeconds: 10
+    lease-renewal-interval-in-seconds: 5
+    # 发呆时间，即服务续约到期时间（缺省为90s）
+    lease-expiration-duration-in-seconds: 30
+
+
+    # 客户端配置类： EurekaClientConfigBean
+  client:
+    #从eureka服务器注册表中获取注册信息的时间间隔（s），默认为30秒
+    registryFetchIntervalSeconds: 5
+    #是否从服务注册中心获取可用的服务清单，默认为true
+    fetch-registry: true
+    #是否将自己注册到eureka服务注册中心，默认为true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:17001/eureka-server/eureka/
+
+---
+spring.profiles: local
+
+spring:
+  # 配置git地址 /{label}/{application}-{profile}.yml
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          #http://gitlab.dyyy.com:9001/dycloudhis/config-center.git
+          uri: http://122.227.26.94:10000/dycloudhis/config-center.git
+          search-paths: local
+          username: zhouzhou
+          password: Zz85141734
+
+---
+spring.profiles: test
+
+spring:
+  # 配置git地址 /{label}/{application}-{profile}.yml
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          #http://gitlab.dyyy.com:9001/dycloudhis/config-center.git
+          uri: http://122.227.26.94:10000/dycloudhis/config-center.git
+          search-paths: test
+          username: zhouzhou
+          password: Zz85141734
+
+
+
+
+
