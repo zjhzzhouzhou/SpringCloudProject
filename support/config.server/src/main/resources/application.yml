@@ -13,7 +13,6 @@ spring:
       password: 1qaz_QAZ
 
 
-
 eureka:
   # 实例配置类： EurekaInstanceConfigBean
   instance:

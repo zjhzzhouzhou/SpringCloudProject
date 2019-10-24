@@ -15,6 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    @Value("${test}")
+    private String testStr;
 
     @ApiOperation(value = "插入用户")
     @PostMapping(value = UserApi.INSERT_USER, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -72,6 +76,12 @@ public class UserController {
             throw new BizException(BizErrorCodeEnum.SEARCH_IS_NULL);
         }
         return new GenericResponse<>(userService.selectBySearchModel(searchModel));
+    }
+
+    @ApiOperation(value = "查询环境变量")
+    @GetMapping(value = "/test/getTtr", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public GenericResponse<String> getTestStr(){
+        return new GenericResponse<>(testStr);
     }
 
 

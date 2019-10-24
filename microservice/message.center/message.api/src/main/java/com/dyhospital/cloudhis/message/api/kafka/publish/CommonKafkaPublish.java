@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
+import org.springframework.util.SerializationUtils;
 import org.springframework.util.concurrent.ListenableFuture;
 
 /**
@@ -22,7 +23,7 @@ public class CommonKafkaPublish extends AbstractKafkaPublishWrapper {
 
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate kafkaTemplate;
 
     @Autowired
     private KafkaSendResultHandler producerListener;
@@ -36,14 +37,15 @@ public class CommonKafkaPublish extends AbstractKafkaPublishWrapper {
         String messageId = kafkaMessage.getMessageId();
         Object content = kafkaMessage.getContent();
 
-        String kafkaValue = JSONObject.toJSONString(content);
+        // String kafkaValue = JSONObject.toJSONString(content);
+        byte[] serialize = SerializationUtils.serialize(content);
         try {
-            kafkaTemplate.send(topic, kafkaValue);
+            kafkaTemplate.send(topic, serialize);
         } catch (Exception e) {
-            logger.error(String.format("kafka 调用发布出现异常,messageId{%s},发起服务为{%s},topic 为{%s},消息体为{%s}", messageId, applicationName, topic, kafkaValue), e);
+            logger.error(String.format("kafka 调用发布出现异常,messageId{%s},发起服务为{%s},topic 为{%s},消息体为{%s}", messageId, applicationName, topic, content), e);
             return false;
         }
-        logger.info(String.format("kafka 发布消息成功,messageId{%s},发起服务为{%s},topic 为{%s},消息体为{%s}", messageId, applicationName, topic, kafkaValue));
+        logger.info(String.format("kafka 发布消息成功,messageId{%s},发起服务为{%s},topic 为{%s},消息体为{%s}", messageId, applicationName, topic, content));
 
         return true;
     }
