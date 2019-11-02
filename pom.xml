@@ -92,7 +92,7 @@
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
-                <version>1.4.10</version>
+                <version>1.4.10-java7</version>
             </dependency>
 
             <!-- JSON lib 开发包 以及它的依赖包 -->
