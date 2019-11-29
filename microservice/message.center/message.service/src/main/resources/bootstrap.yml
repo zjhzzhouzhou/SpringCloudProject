@@ -1,15 +1,36 @@
 spring:
   application:
     name: message-service
+  profiles.include: message-service, springcloud, redis, kafka
+
 
 #logback中配置的日志路径
 logback:
   logfile:
       path: /data/logs/${spring.application.name}
 
-logging:
- level:
-    root: info
+server:
+  port: 18002
 
-management:
-  context-path:/
+
+---
+spring:
+  profiles: local
+  cloud:
+    config:
+      label: master
+      uri: http://localhost:17006
+      username: zhouzhou
+      password:
+      name: dyyy
+
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      label: master
+      uri: http://20.21.1.147:17006
+      username: zhouzhou
+      password:
+      name: dyyy

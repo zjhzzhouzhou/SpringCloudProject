@@ -4,6 +4,13 @@ spring:
 
   profiles.include: user-service, springcloud, redis, database, kafka
 
+server:
+  port: 18001
+
+
+---
+spring:
+  profiles: local
   cloud:
     config:
       label: master
@@ -12,5 +19,13 @@ spring:
       password:
       name: dyyy
 
-server:
-  port: 18001
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      label: master
+      uri: http://20.21.1.147:17006
+      username: zhouzhou
+      password:
+      name: dyyy
