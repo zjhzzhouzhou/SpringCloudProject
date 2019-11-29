@@ -13,7 +13,6 @@
     <dependencies>
 
 
-
         <!-- spring boot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -32,14 +31,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis</groupId>-->
-<!--            <artifactId>mybatis</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis</groupId>-->
-<!--            <artifactId>mybatis-spring</artifactId>-->
-<!--        </dependency>-->
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -49,8 +41,9 @@
             <artifactId>pagehelper</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.guoyukun.jdbc</groupId>
-            <artifactId>oracle-ojdbc6</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -89,21 +82,21 @@
         </resources>
 
         <plugins>
-  <!--          <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>&lt;!&ndash; 设置程序执行的主类 &ndash;&gt;
-                    <mainClass>com.lushunde.springboot.junit.StartBootstarp</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
+            <!--          <plugin>
+                          <groupId>org.springframework.boot</groupId>
+                          <artifactId>spring-boot-maven-plugin</artifactId>
+                          <configuration>&lt;!&ndash; 设置程序执行的主类 &ndash;&gt;
+                              <mainClass>com.lushunde.springboot.junit.StartBootstarp</mainClass>
+                          </configuration>
+                          <executions>
+                              <execution>
+                                  <goals>
+                                      <goal>repackage</goal>
+                                      <goal>build-info</goal>
+                                  </goals>
+                              </execution>
+                          </executions>
+                      </plugin>-->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>

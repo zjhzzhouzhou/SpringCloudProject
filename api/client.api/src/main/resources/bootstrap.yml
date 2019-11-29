@@ -1,11 +1,7 @@
-
-
 spring:
   application:
     name: client-api
   profiles.include: client-api, springcloud, redis, kafka
-
-
 
 
 #logback中配置的日志路径

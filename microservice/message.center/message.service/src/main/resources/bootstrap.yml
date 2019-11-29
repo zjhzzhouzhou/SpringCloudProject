@@ -1,7 +1,7 @@
 spring:
   application:
     name: message-service
-  profiles.include: message-service, springcloud, redis, kafka
+  profiles.include: message-service, springcloud, redis, kafka, database
 
 
 #logback中配置的日志路径
@@ -11,7 +11,6 @@ logback:
 
 server:
   port: 18002
-
 
 ---
 spring:
