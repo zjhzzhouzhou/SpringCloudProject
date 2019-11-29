@@ -12,6 +12,8 @@ spring:
       name: admin
       password: 1qaz_QAZ
 
+  kafka:
+    bootstrap-servers: 20.21.1.147:9092
 
 eureka:
   # 实例配置类： EurekaInstanceConfigBean

@@ -3,16 +3,9 @@
 spring:
   application:
     name: client-api
-
   profiles.include: client-api, springcloud, redis, kafka
 
-  cloud:
-    config:
-      label: master
-      uri: http://localhost:17006
-      username: zhouzhou
-      password:
-      name: dyyy
+
 
 
 #logback中配置的日志路径
@@ -22,3 +15,25 @@ logback:
 
 server:
   port: 16001
+
+---
+spring:
+  profiles: local
+  cloud:
+    config:
+      label: master
+      uri: http://localhost:17006
+      username: zhouzhou
+      password:
+      name: dyyy
+
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      label: master
+      uri: http://20.21.1.147:17006
+      username: zhouzhou
+      password:
+      name: dyyy
