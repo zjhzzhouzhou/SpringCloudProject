@@ -1,9 +1,13 @@
-FROM @docker.registry.name.prefix@/jdk8
-# FROM 192.168.85.9:8010/docker-dev/jdk8
-#VOLUME /tmp
+FROM openjdk:8-jre-alpine
+
+MAINTAINER zhouzhou
+LABEL name="message-service" version="1.0" author="zhouzhou"
+
 ENV SERVICE_NAME message-service
-ENV APP_HOME /app/miscroservice
+ENV OPS "--spring.profiles.active=test -server -Xms256m -Xmx256m -Xss256k"
+
 RUN mkdir -p /data/logs
-ADD ${SERVICE_NAME}.jar ${APP_HOME}/libs/${SERVICE_NAME}.jar
-EXPOSE 16009
-ENTRYPOINT java ${JAVA_OPTS} -jar ${APP_HOME}/libs/${SERVICE_NAME}.jar
+ADD ${SERVICE_NAME}-0.0.1-SNAPSHOT.jar ${SERVICE_NAME}-image.jar
+EXPOSE 18001
+ENTRYPOINT java -jar ${OPS} ${SERVICE_NAME}-image.jar
+

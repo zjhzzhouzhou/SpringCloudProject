@@ -1,8 +1,13 @@
-FROM @docker.registry.name.prefix@/jdk8
-# FROM 192.168.85.9:8010/docker-dev/jdk8
-ENV SERVICE_NAME oms-api
-ENV APP_HOME /app/miscroservice
+FROM openjdk:8-jre-alpine
+
+MAINTAINER zhouzhou
+LABEL name="pagehelper-demo" version="1.0" author="zhouzhou"
+
+ENV SERVICE_NAME pagehelper
+ENV OPS "--spring.profiles.active=test -server -Xms256m -Xmx256m -Xss256k"
+
 RUN mkdir -p /data/logs
-ADD ${SERVICE_NAME}.jar ${APP_HOME}/libs/${SERVICE_NAME}.jar
-EXPOSE 16103
-ENTRYPOINT java ${JAVA_OPTS} -jar ${APP_HOME}/libs/${SERVICE_NAME}.jar
+ADD ${SERVICE_NAME}-0.0.1-SNAPSHOT.jar ${SERVICE_NAME}-image.jar
+EXPOSE 16001
+ENTRYPOINT java -jar ${OPS} ${SERVICE_NAME}-image.jar
+
