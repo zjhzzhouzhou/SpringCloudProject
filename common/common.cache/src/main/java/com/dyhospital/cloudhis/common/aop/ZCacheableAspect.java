@@ -1,7 +1,7 @@
 package com.dyhospital.cloudhis.common.aop;
 
 import com.dyhospital.cloudhis.common.annotation.ZCacheable;
-import com.dyhospital.cloudhis.common.redis.cluster.JedisClusterCache;
+import com.dyhospital.cloudhis.common.redis.util.RedisUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -26,7 +26,7 @@ public class ZCacheableAspect {
     private static final Logger log = LoggerFactory.getLogger(ZCacheableAspect.class);
 
     @Autowired
-    protected JedisClusterCache redisUtil;
+    protected RedisUtil redisUtil;
 
     /**
      * 拦截所有元注解ZCacheable注解的方法
@@ -74,7 +74,7 @@ public class ZCacheableAspect {
         log.info("**********开始将数据保存到Redis缓存**********");
         if (key != null) {
             if (expireTime > 0) { // 有过期时间
-                redisUtil.setex(key, obj, expireTime);
+                redisUtil.set(key, obj, expireTime);
 
             } else {
                 redisUtil.set(key, obj);
