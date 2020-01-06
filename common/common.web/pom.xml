@@ -92,10 +92,6 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-        <!-- 服务追踪 -->
-
-
-        <!-- 服务追踪 -->
 
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>

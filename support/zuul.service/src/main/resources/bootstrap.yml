@@ -5,6 +5,7 @@ spring:
   application:
     name: zuul-service
 
+  profiles: local
   profiles.include: zuul, springcloud, redis, kafka
 
   cloud:
